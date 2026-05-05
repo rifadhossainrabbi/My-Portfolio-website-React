@@ -1,6 +1,8 @@
 import React from 'react';
 import useProjects from '../../assets/hooks/allProjects';
 import { HashLoader } from 'react-spinners';
+import { FaArrowRight } from 'react-icons/fa6';
+import { Link } from 'react-router';
 
 const Projects = () => {
   const { projects, loading } = useProjects();
@@ -17,7 +19,21 @@ const Projects = () => {
     <div className="max-w-9/12 mx-auto py-10">
       {/* Section Title */}
       <p className="font-semibold text-[#494b90]">03</p>
-      <h2 className="text-2xl font-bold mb-6">My Projects</h2>
+
+      {/* My projects and view porjects */}
+      <div className="flex justify-between">
+        <h2 className="text-2xl font-bold mb-6">My Projects</h2>
+        <div>
+          <Link to={'/projects'}>
+            <button className="btn btn-neutral bg-transparent border border-blue-700 rounded-xl group hover:cursor-pointer">
+              <span className="flex justify-between items-center gap-2 bg-linear-to-r from-[#3599e8] to-[#475ae8] bg-clip-text text-transparent">
+                View all{' '}
+                <FaArrowRight className="text-[#475ae8] group-hover:transition-all duration-300 group-hover:translate-x-2" />
+              </span>
+            </button>
+          </Link>
+        </div>
+      </div>
 
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

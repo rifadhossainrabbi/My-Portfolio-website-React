@@ -15,8 +15,8 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-transparent shadow py-4">
-      <div className="max-w-9/12 mx-auto flex justify-between items-center">
+    <nav className="bg-transparent shadow py-4 relative z-50">
+      <div className="w-11/12 max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <h1 className="text-2xl font-bold">
           <span className="bg-gradient-to-r from-[#3599e8] to-[#475ae8] bg-clip-text text-transparent">
@@ -25,7 +25,7 @@ const Navbar = () => {
         </h1>
 
         {/* Desktop Menu */}
-        <ul className="hidden lg:flex gap-6 items-center">
+        <ul className="hidden lg:flex gap-8 items-center">
           {navItems.map((item, ind) => (
             <MyNavLinks key={ind} to={item.path}>
               {item.text}
@@ -33,35 +33,67 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Right Button */}
+        {/* Right Download button (Desktop) */}
         <div className="hidden lg:block">
-          <a className="flex items-center gap-2 px-4 py-2 rounded-md border border-[#363a5a] hover:bg-[#1c2238] transition">
-            <AiOutlineDownload />
+          <a
+            href="/resume.pdf"
+            download
+            className="flex items-center gap-2 px-5 py-2 rounded-md border border-blue-500 hover:bg-blue-500 hover:text-white transition-all cursor-pointer font-medium">
+            <AiOutlineDownload size={20} />
             Download CV
           </a>
         </div>
 
-        {/* Mobile Button */}
-        <button onClick={() => setOpen(!open)} className="lg:hidden text-2xl">
-          {open ? <HiX /> : <HiOutlineMenu />}
+        {/* mobile a menu toggle  */}
+        <button
+          onClick={() => setOpen(true)}
+          className="lg:hidden text-3xl text-blue-500 cursor-pointer">
+          <HiOutlineMenu />
         </button>
       </div>
 
-      {/* Mobile Menu */}
-      {open && (
-        <div className="lg:hidden mt-4 px-6 pb-4 space-y-3">
-          {navItems.map((item, ind) => (
-            <div key={ind} onClick={() => setOpen(false)}>
-              <MyNavLinks to={item.path}>{item.text}</MyNavLinks>
-            </div>
-          ))}
+      {/* mobile sidebar open hole puro page fixed dawar karone halka jhapsha ba opacity pabe r baire kotaho click korle abar sidebar dekah jabe na ease-in-out er dara cole jabe */}
+      <div
+        className={`fixed inset-0 bg-black/50 transition-opacity duration-300 lg:hidden ${
+          open ? 'opacity-100 visible' : 'opacity-0 invisible'
+        }`}
+        onClick={() => setOpen(false)}
+      />
 
-          <a className="flex items-center gap-2 px-4 py-2 rounded-md border border-[#363a5a] w-fit">
-            <AiOutlineDownload />
+      {/* Mobile Sidebar menu */}
+      <div
+        className={`fixed top-0 right-0 h-screen w-72 bg-[#0f172a] shadow-2xl transform transition-transform duration-300 ease-in-out lg:hidden z-[60] ${
+          open ? 'translate-x-0' : 'translate-x-full'
+        }`}>
+        <div className="flex flex-col h-full p-6">
+          {/* Close Button */}
+          <div className="flex justify-end mb-8">
+            <button
+              onClick={() => setOpen(false)}
+              className="text-3xl text-gray-400 hover:text-white cursor-pointer">
+              <HiX />
+            </button>
+          </div>
+
+          {/* Nav Links */}
+          <ul className="flex flex-col gap-6 mb-10">
+            {navItems.map((item, ind) => (
+              <li key={ind} onClick={() => setOpen(false)} className="text-lg">
+                <MyNavLinks to={item.path}>{item.text}</MyNavLinks>
+              </li>
+            ))}
+          </ul>
+
+          {/* Download CV (Mobile) */}
+          <a
+            href="/resume.pdf"
+            download
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700 transition w-full">
+            <AiOutlineDownload size={20} />
             Download CV
           </a>
         </div>
-      )}
+      </div>
     </nav>
   );
 };

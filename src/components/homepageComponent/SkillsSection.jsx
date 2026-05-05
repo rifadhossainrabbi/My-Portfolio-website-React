@@ -91,7 +91,7 @@ const SkillsSection = () => {
           </div>
 
           {/* text */}
-          <p className="mt-2 text-transparent bg-clip-text bg-gradient-to-r from-[#3599e8] to-[#475ae8] font-semibold z-10">
+          <p className="mt-2 text-transparent bg-clip-text bg-linear-to-r from-[#3599e8] to-[#475ae8] font-semibold z-10">
             Next.js
           </p>
         </div>
